@@ -5,8 +5,6 @@ var  express = require('express')
 
 var db = new DBConnector();
 
-console.log('!!!! Router = '+router);
-
 router.get('/', function(req,res,next){
    db.Applications.find( function(err, applications){
       if (err) return next(err);
