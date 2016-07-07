@@ -1,0 +1,17 @@
+{
+  "name": "api-portal-server",
+  "version": "1.0.0",
+  "description": "Focus Days 2016 - API Portal Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.1.18",
+    "mongoose": "^4.5.3"
+  }
+}

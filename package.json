@@ -1,0 +1,11 @@
+{
+  "name": "api-portal",
+  "version": "1.0.0",
+  "description": "Focus Days 2016 - API Portal",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}
