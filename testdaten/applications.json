@@ -1,0 +1,98 @@
+[
+      {
+        "appl-id": "APP-705",
+        "shortname": "OfficeConverter"
+      },
+      {
+        "appl-id": "APP-635",
+        "shortname": "InfraDB"
+      },
+      {
+        "appl-id": "APP-711",
+        "shortname": "PKVR",
+        "mailbox": "Mailbox-6"
+      },
+      {
+        "appl-id": "APP-642",
+        "shortname": "UIT",
+        "mailbox": "mailto:helpdesk.ch@axa-tech.com"
+      },
+      {
+        "appl-id": "APP-958",
+        "shortname": "WANA-Admin",
+        "mailbox": "AXA-BOX WANA Services"
+      },
+      {
+        "appl-id": "APP-1031",
+        "shortname": "ASCHBS",
+        "mailbox": "AXA-BOX AXA-Glass"
+      },
+      {
+        "appl-id": "APP-1030",
+        "shortname": "FSR",
+        "mailbox": "AXA Box Mobile Solutions"
+      },
+     {
+        "appl-id": "APP-636",
+        "shortname": "CAM K&K",
+        "mailbox": "Applikations-Mailbox Kredit & Kaution Credit Application Manager"
+      },
+      {
+        "appl-id": "APP-632",
+        "shortname": "GFE",
+        "mailbox": "mailto:emm@axa-tech.com"
+      },
+      {
+        "appl-id": "APP-528",
+        "shortname": "WF_PENAXA",
+        "mailbox": "mailto:winflex@axa-winterthur.ch"
+      },
+      {
+        "appl-id": "APP-531",
+        "shortname": "WF_TarifTool",
+        "mailbox": "mailto:winflex@axa-winterthur.ch"
+      },
+      {
+        "appl-id": "APP-324",
+        "shortname": "WF_Swiss Wrapper",
+        "mailbox": "Mailbox (WF_Swiss Wrapper)"
+      },
+      {
+        "appl-id": "APP-294",
+        "shortname": "Baug",
+        "mailbox": "Mailbox (Baug)"
+      },
+      {
+        "appl-id": "APP-231",
+        "shortname": "BankCashClosing"
+      },
+      {
+        "appl-id": "APP-88",
+        "shortname": "BCP-DB"
+      },
+      {
+        "appl-id": "APP-14",
+        "shortname": "Bersys",
+        "mailbox": "Mailbox - AXA-BOX IT IL 3rd Level Support (Bersys)"
+      },
+      {
+        "appl-id": "APP-145",
+        "shortname": "BROKER",
+        "mailbox": "Mailbox (BROKER)"
+      },
+      {
+        "appl-id": "APP-565",
+        "shortname": "BPM",
+        "mailbox": "Mehrere Mailboxen vorhanden. Bitte in Mega nachschauen."
+      },
+      {
+        "appl-id": "APP-586",
+        "shortname": "CA RCM",
+        "mailbox": "Mailbox (CA RCM)"
+      },
+      {
+        "appl-id": "APP-452",
+        "shortname": "COB",
+        "mailbox": "Mailbox (COB)"
+      }
+    ]

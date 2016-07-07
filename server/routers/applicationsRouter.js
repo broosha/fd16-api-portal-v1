@@ -17,7 +17,7 @@ router.post('/', function(req,res,next){
    console.log(applications);
    for(var i = 0; i < applications.length; i++) {
       var application = applications[i];
-      db.Api.create( application , function(err,persistedApplication){
+      db.Application.create( application , function(err,persistedApplication){
          if (err) return next(err);
          applications[i] = persistedApplication;
       });
