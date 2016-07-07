@@ -4,7 +4,12 @@ var mongoose = require("mongoose")
 var applicationSchema = Schema({
     "appl-id": { type: String, required: true},
     shortname: { type: String, required: true},
-    mailbox: { type: String, required: false}
+    mailbox: { type: String, required: false},
+    tenant: { 
+      type: Schema.Types.ObjectId,
+      ref: 'tenant',
+      required: true
+    }
 });
 
 module.exports = mongoose.model('application', applicationSchema);
