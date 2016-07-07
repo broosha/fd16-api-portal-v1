@@ -2,11 +2,11 @@ var mongoose = require("mongoose")
   , Schema = mongoose.Schema;
 
 var applicationSchema = Schema({
-    "appl-id": { type: String, required: true},
+    _id: String, // Appl-ID
     shortname: { type: String, required: true},
     mailbox: { type: String, required: false},
     tenant: { 
-      type: Schema.Types.Number,
+      type: Schema.Types.String,
       ref: 'tenant',
       required: true
     }

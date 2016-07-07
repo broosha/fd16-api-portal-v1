@@ -2,11 +2,11 @@ var mongoose = require("mongoose")
   , Schema = mongoose.Schema;
 
 var userSchema = Schema({
+    _id: String, // E-Mail
     name: { type: String, required: true},
     lastname: { type: String, required: true},
-    mail: { type: String, required: true},
     tenant: { 
-      type: Schema.Types.Number,
+      type: Schema.Types.String,
       ref: 'tenant',
       required: true
     },
