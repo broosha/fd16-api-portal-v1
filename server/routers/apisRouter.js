@@ -6,10 +6,29 @@ var  express = require('express')
 var db = new DBConnector();
 
 router.get('/', function(req,res,next){
-   db.Api.find( function(err, apis){
+   var visibility = req.params.visibility;
+   
+   if(!visibility){
+      db.Api.find( function(err, apis){
+         if (err) return next(err);
+         res.json(apis);
+      });   
+   } else{
+      db.Api.find({visibility: visibility}).exec(function(err, apis) {
+         if (err) return next(err);
+         res.json(apis);
+      });
+   }
+   
+});
+
+router.get('/:id', function(req, res, next) {
+    var apiId = req.params.id;
+    db.Api.findById(apiId,function(err, api){
       if (err) return next(err);
-      res.json(apis);
-   });
+      if (!api) return res.json('FEHLER: Api mit ID: '+apiId+' nicht gefunden!');
+      res.json(api);
+    });
 });
 
 router.post('/', function(req,res,next){
