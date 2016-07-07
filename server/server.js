@@ -5,6 +5,7 @@ var app = express();
 app.use(bodyParser.json());
 
 var applicationsRouter = require('./routers/applicationsRouter');
+console.log('Test Susanne in drin');
 
 var server;
 if(process.env.PORT == undefined || process.env.PORT == null)
