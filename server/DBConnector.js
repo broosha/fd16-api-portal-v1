@@ -24,7 +24,14 @@ var DBConnector = function()
         }
     });
     
-    this.Applications = require('./models/applicationsModel');
+    this.ApiConsumer = require('./models/apiConsumerModel');
+    this.Api = require('./models/apiModel');
+    this.Application = require('./models/applicationModel');
+    this.AuthProvider = require('./models/authProviderModel');
+    this.OAuthProvider = require('./models/oAuthProviderModel');
+    this.Role = require('./models/roleModel');
+    this.Tenant = require('./models/tenantModel');
+    this.User = require('./models/userModel');
     
 };
 

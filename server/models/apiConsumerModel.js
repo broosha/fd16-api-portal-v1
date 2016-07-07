@@ -2,7 +2,7 @@ var mongoose = require("mongoose")
   , Schema = mongoose.Schema;
 
 var apiConsumerSchema = Schema({
-    "rate-limit": { type: Number(), required: false},
+    "rate-limit": { type: Number, required: false},
     "endpoint-url": { type: String, required: true}
 });
 

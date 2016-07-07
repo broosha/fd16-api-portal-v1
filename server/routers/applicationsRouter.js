@@ -6,18 +6,29 @@ var  express = require('express')
 var db = new DBConnector();
 
 router.get('/', function(req,res,next){
-   db.Applications.find( function(err, applications){
+   db.Application.find( function(err, applications){
       if (err) return next(err);
       res.json(applications);
    });
 });
 
 router.post('/', function(req,res,next){
-    console.log(req.body);
-   db.Applications.create( req.body , function(err,application){
-      if (err) return next(err);
-      res.json(application);
-   });
+   var applications = req.body;
+   console.log(applications);
+   for(var i = 0; i < applications.length; i++) {
+      var application = applications[i];
+      db.Api.create( application , function(err,persistedApplication){
+         if (err) return next(err);
+         applications[i] = persistedApplication;
+      });
+   }
+   res.json(applications);
+});
+
+// ADMIN FUNCTION: DELETE all applications
+router.delete('/',  function(req,res,next){
+   db.Application.find().remove().exec();
+   res.json('OK');
 });
 
 module.exports = router;
