@@ -7,5 +7,4 @@ var applicationSchema = Schema({
     mailbox: { type: String, required: false}
 });
 
-var m  = mongoose.model('room', applicationSchema);
-module.exports = m;
+module.exports = mongoose.model('application', applicationSchema);
