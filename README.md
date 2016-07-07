@@ -6,13 +6,12 @@
      `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
     ----------------------------------------------------------------- 
 
+Focus Days 2016 - API-Portal
 
-Hi there! Welcome to Cloud9 IDE!
 
-To get you started, create some files, play with the terminal,
-or visit http://docs.c9.io for our documentation.
-If you want, you can also go watch some training videos at
-http://www.youtube.com/user/c9ide.
+Nützliche Links
+---------------
+Cloud 9: https://ide.c9.io
+Mongoose Doku: http://mongoosejs.com/docs/api.html
+GIT Cheatsheet: http://ndpsoftware.com/git-cheatsheet.html#loc=local_repo;
 
-Happy coding!
-The Cloud9 IDE team
