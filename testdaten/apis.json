@@ -101,7 +101,7 @@
     "api-uri": "https://api.axa.ch/rest/po/request-trackingl/v1/",
     "description": "REST API für das Anliegentracking",
     "version": 1,
-    "swagger-doc": "",
+    "swagger-doc": "../testdaten/swagger/request-tracking.json",
     "__v": 0,
     "auth-provider-type": [
       "OAuth",
@@ -116,7 +116,7 @@
     "api-uri": "https://api.axa.ch/rest/axa-gis/v1/",
     "description": "REST API for GIS Provider",
     "version": 1,
-    "swagger-doc": "",
+    "swagger-doc": "../testdaten/swagger/axa-gis.json",
     "__v": 0,
     "auth-provider-type": [
       "Mutual SSL",

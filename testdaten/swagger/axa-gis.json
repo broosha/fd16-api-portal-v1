@@ -1,0 +1,2482 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "Axa GIS API v1"
+  },
+  "host" : "soadev.ch.winterthur.com:8443",
+  "basePath" : "/axa-gis",
+  "tags" : [ {
+    "name" : "providers"
+  }, {
+    "name" : "application"
+  }, {
+    "name" : "areas"
+  }, {
+    "name" : "groups"
+  }, {
+    "name" : "areas, layers"
+  }, {
+    "name" : "layers"
+  }, {
+    "name" : "shapes"
+  }, {
+    "name" : "geometry"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/areas/{layerId}" : {
+      "post" : {
+        "tags" : [ "areas" ],
+        "summary" : "Creates and inserts a new operational area. ",
+        "description" : "",
+        "operationId" : "create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The provider's type Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The GeoJSON Area obejct. to be inserted",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AreaCdb"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AreaCdb"
+            }
+          },
+          "404" : {
+            "description" : "Area request couldn't be created."
+          }
+        }
+      }
+    },
+    "/areas/{layerId}/{areaId}" : {
+      "put" : {
+        "tags" : [ "areas" ],
+        "summary" : "Update of a single operational area identified by its area Id and assigned to a layer Id ",
+        "description" : "",
+        "operationId" : "update",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Failed to update operational area."
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "areas" ],
+        "summary" : "Deletes and removes the operational area.",
+        "description" : "",
+        "operationId" : "delete",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The provider's type Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The provider's type Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Failed to delete operational area."
+          }
+        }
+      }
+    },
+    "/areas/{layerId}/{areaId}/{shapeCdbId}" : {
+      "post" : {
+        "tags" : [ "areas" ],
+        "summary" : "Links the given layer, opertational area and shape. ",
+        "description" : "",
+        "operationId" : "link",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "Layer Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "Operational Area Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "shapeCdbId",
+          "in" : "path",
+          "description" : "Shape Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Failed to link operational area."
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "areas" ],
+        "summary" : "Unlink (delete) operational area. ",
+        "description" : "",
+        "operationId" : "unlink",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "Layer Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "Area Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "shapeCdbId",
+          "in" : "path",
+          "description" : "Shape Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Failed to unlink (delete) operational area."
+          }
+        }
+      }
+    },
+    "/areas/{providertypeId}" : {
+      "get" : {
+        "tags" : [ "areas" ],
+        "summary" : "Supports the location sensitivity operational area search for a selected provider type.",
+        "description" : "",
+        "operationId" : "getByLocation",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "providertypeId",
+          "in" : "path",
+          "description" : "The provider's type Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "$expand",
+          "in" : "query",
+          "description" : "This query option allows a client to request an object including expanded sub-attributes. Multiple expand criterias must be separated by ',' (comma) delimiter (e.g. $expand=provider,tariffzone)Expand values - provider, providerall, tariffzone, tariffzones, templates, geometry, opareas, styles",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "location",
+          "in" : "query",
+          "description" : "The (json) location. The location attribute is represented as longitude and latitude as float delimited by a comma (e.g location={\"latitude\":47.5077739852559,\"longitude\":8.72186404775057}). ",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AreaCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Area request couldn't be processed"
+          }
+        }
+      }
+    },
+    "/areas/{providertypeId}/{areaId}" : {
+      "get" : {
+        "tags" : [ "areas" ],
+        "summary" : "Gets the operational area for a provided provider type and area identifier.",
+        "description" : "",
+        "operationId" : "getById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "providertypeId",
+          "in" : "path",
+          "description" : "The provider's type Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "$expand",
+          "in" : "query",
+          "description" : "This query option allows a client to request an object including expanded sub-attributes. Multiple expand criterias must be separated by ',' (comma) delimiter. Expand values - provider, providerall, tariffzone, tariffzones, templates, geometry, opareas, styles",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AreaCdb"
+            }
+          },
+          "404" : {
+            "description" : "Area request couldn't be processed"
+          }
+        }
+      }
+    },
+    "/cartoDbToken/{namedMapName}" : {
+      "get" : {
+        "tags" : [ "application" ],
+        "summary" : "The managed Access Token is assigned by AXA-GIS on CartoDB to grant users access during lifetime/lifecycle of this Token to assigned resources (Named Maps) on CartoDB without using/knowing the secret credentials. AXA-GIS holds the secret credential to access CartoDB. The Carto DB Access Token is a UUID (Universally Unique Identifier) that is created and managed by AXA-GIS. A nor-malized UUID looks like 550e8400-e29b-11d4-a716-446655440000 (See also java.util.UUID, RFC4122). ",
+        "description" : "",
+        "operationId" : "getCartoDbToken",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "namedMapName",
+          "in" : "path",
+          "description" : "Name of the map to get the assigned access token from.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Token"
+            }
+          },
+          "404" : {
+            "description" : "Named map couldn't be found."
+          }
+        }
+      }
+    },
+    "/geometries/join/{cdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Merges an area (polygon, by its CartoDB-id) with a GeoJSON-object (polygon).",
+        "description" : "",
+        "operationId" : "joinByGeoJson",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "description" : "The CartoDB-id of the area",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Failed to merge the area as it does not exist or the GeoJson-object is invalid."
+          }
+        }
+      }
+    },
+    "/geometries/join/{cdbId}/{joinType}/{joinCdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Joins geometry data of type 'area' OR 'shape' based on its CartoDB ID.",
+        "description" : "",
+        "operationId" : "joinByShape",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "description" : "The CartoDB Id of geometry object to be joined.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "joinType",
+          "in" : "path",
+          "description" : "The geometry object type as of 'area' OR 'shape'.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "joinCdbId",
+          "in" : "path",
+          "description" : "The CartoDB Id of geometry object to join with.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Failed to join geometry data as object is not availble in CartoDB or 'joinType' argument is wrong or missing"
+          }
+        }
+      }
+    },
+    "/geometries/split/{cdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Split up geometry-object by a polyline.",
+        "description" : "",
+        "operationId" : "splitByPolyline",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "description" : "Geometry to be split",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "GeoJSON-polyline object",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AreaCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Failed to split object as polyline is empty or object is was not found on CartoDB."
+          }
+        }
+      }
+    },
+    "/geometries/substract/{cdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Subtracts a GeoJSON-polygon from another polygon.",
+        "description" : "",
+        "operationId" : "substractByGeoJson",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The GeoJSON shape object to be subtracted.",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AreaCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Failed to subtract the GoeJSON Shape object."
+          }
+        }
+      }
+    },
+    "/geometries/substract/{cdbId}/{joinType}/{joinCdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Subtracts a geometry from another.",
+        "description" : "",
+        "operationId" : "substractByShape",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "description" : "geometry by it cartodb-id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "joinType",
+          "in" : "path",
+          "description" : "The geometry object join type (e.g. 'opArea' or 'tariffzone')",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "joinCdbId",
+          "in" : "path",
+          "description" : "The joined CartoDB geometry object Id to be subtracted.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AreaCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Failed to subtract the two geometry objects."
+          }
+        }
+      }
+    },
+    "/geometries/toggle/{cdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Toggles the template-composition-mode of an area.",
+        "description" : "",
+        "operationId" : "toggleByCdbId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "description" : "Area-id to be toggled",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          },
+          "404" : {
+            "description" : "Failed to toggle the template-composition-mode as area not found on CartoDB by its Id."
+          }
+        }
+      }
+    },
+    "/geometries/unjoin/{cdbId}" : {
+      "post" : {
+        "tags" : [ "geometry" ],
+        "summary" : "Unjoins separated partitions from a polygon.",
+        "description" : "",
+        "operationId" : "unjoinByCdbId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cdbId",
+          "in" : "path",
+          "description" : "Geometry to be unjoined",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AreaCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Failed to unjoin the polygon as it is not found on CartoDB by its id."
+          }
+        }
+      }
+    },
+    "/layerAreas/delete/{layerId}/{areaId}" : {
+      "post" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Removes and deletes an area from the layer.",
+        "description" : "",
+        "operationId" : "workaroundDelete",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area's unique identifier to be deleted.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/layerAreas/delete/{layerId}/{areaId}/{shapeCdbId}" : {
+      "post" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Un-links (deletes) a Template Area from this layer.",
+        "description" : "",
+        "operationId" : "workaroundUnlink",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "shapeCdbId",
+          "in" : "path",
+          "description" : "The shape's unique identifier to be deleted from the area",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/layerAreas/put/{layerId}/{areaId}" : {
+      "post" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Updates area-contour by the related templates-shapes.",
+        "description" : "",
+        "operationId" : "workaroundUpdateContour",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/layerAreas/{layerId}" : {
+      "post" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Creates and inserts a new Area object. Returns the area unique identifier.",
+        "description" : "",
+        "operationId" : "create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer id to add the new Area.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The GeoJSON area object to be inserted.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AreaCdb"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      }
+    },
+    "/layerAreas/{layerId}/{areaId}" : {
+      "get" : {
+        "tags" : [ "areas" ],
+        "summary" : "Gets the area from a specific layer.",
+        "description" : "",
+        "operationId" : "getById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer-id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area-id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "$expand",
+          "in" : "query",
+          "description" : "This query option allows a client to request an object including expanded sub-attributes like *geometry* or *bounds*. Multiple expand criterias must be separated by ',' delimiter. ",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AreaCdb"
+            }
+          },
+          "404" : {
+            "description" : "Area request couldn't be processed"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Updates area-contour by the related templates-shapes.",
+        "description" : "",
+        "operationId" : "updateContour",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Removes and deletes an area from the layer.",
+        "description" : "",
+        "operationId" : "delete",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area unique identifier to be deleted.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/layerAreas/{layerId}/{areaId}/{shapeCdbId}" : {
+      "post" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Creates and links a new Template Area to this layer.",
+        "description" : "",
+        "operationId" : "link",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "shapeCdbId",
+          "in" : "path",
+          "description" : "The Shape unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "areas, layers" ],
+        "summary" : "Un-links (deletes) a Template Area from this layer.",
+        "description" : "",
+        "operationId" : "unlink",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "The layer unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "areaId",
+          "in" : "path",
+          "description" : "The area unique identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "shapeCdbId",
+          "in" : "path",
+          "description" : "The shape's unique identifier to be deleted from the area",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/layers/{layerId}" : {
+      "get" : {
+        "tags" : [ "layers" ],
+        "summary" : "Gets a layer by its id.",
+        "description" : "",
+        "operationId" : "getById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "layerId",
+          "in" : "path",
+          "description" : "layer-id ",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/LayerCdb"
+            }
+          },
+          "404" : {
+            "description" : "Failed to get the layer"
+          }
+        }
+      }
+    },
+    "/providers/{providertypeId}" : {
+      "get" : {
+        "tags" : [ "providers" ],
+        "summary" : "Gets a list of all available providers of given type. If it used in combination with autocompletion $search param then the result is limited to a maximum of 10 items.",
+        "description" : "",
+        "operationId" : "getProviders",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "providertypeId",
+          "in" : "path",
+          "description" : "Provider type Identifier. ",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "$search",
+          "in" : "query",
+          "description" : "Can be used by clients with search-text autocomplete function. '$search' parameter will be used for search within providerName, saraPartnerId and street parameters simultaneously. ",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ProviderCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Failed to get the provider from CartoDB. "
+          }
+        }
+      }
+    },
+    "/providers/{providertypeId}/{providerId}" : {
+      "get" : {
+        "tags" : [ "providers" ],
+        "summary" : "Gets a provider by providertype-id and its id.",
+        "description" : "",
+        "operationId" : "getProvider",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "providertypeId",
+          "in" : "path",
+          "description" : "providertype-id ",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "providerId",
+          "in" : "path",
+          "description" : "provider-id ",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "$expand",
+          "in" : "query",
+          "description" : "This query option allows a client to request an object including expanded sub-attributes. Multiple expand criterias must be separated by ',' delimiter. ",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ProviderCdb"
+            }
+          },
+          "404" : {
+            "description" : "Failed to get the provider from CartoDB. "
+          }
+        }
+      }
+    },
+    "/providertypes/assistancebrowser" : {
+      "get" : {
+        "tags" : [ "providers" ],
+        "summary" : "A list of all available *ProviderType* for Assistance Browser.",
+        "description" : "",
+        "operationId" : "getAssistanceBrowserProvider",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ProvidertypeCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "No *ProviderType* was found."
+          }
+        }
+      }
+    },
+    "/providertypes/{branchId}" : {
+      "get" : {
+        "tags" : [ "providers" ],
+        "summary" : "A list of all available *ProviderType* for Assistance Browser.",
+        "description" : "",
+        "operationId" : "getByBranch",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "branchId",
+          "in" : "path",
+          "description" : "Branch identifier of the designated provider types.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ProvidertypeCdb"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shapes" : {
+      "get" : {
+        "tags" : [ "shapes" ],
+        "summary" : "Gets a list of all available *TemplateShape* objects. If it used in combination with autocompletion $search param then the result is limited to a maximum of 10 items.",
+        "description" : "",
+        "operationId" : "search",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "$search",
+          "in" : "query",
+          "description" : "Can be used by clients with search-text autocomplete function. ",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TemplateShapeCdb"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shapes/{cartodb_id}" : {
+      "get" : {
+        "tags" : [ "shapes" ],
+        "summary" : "Returns a *TemplateShape* object.",
+        "description" : "",
+        "operationId" : "getByCartoDbId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cartodb_id",
+          "in" : "path",
+          "description" : "Unique identifer of the Template Shape.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "$expand",
+          "in" : "query",
+          "description" : "This query option allows a client to request an object including expanded sub-attributes like *geometry* or *bounds*. Multiple expand criterias must be separated by ',' delimiter. ",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/TemplateShapeCdb"
+            }
+          }
+        }
+      }
+    },
+    "/shapes/{group_id}" : {
+      "post" : {
+        "tags" : [ "shapes" ],
+        "summary" : "Inserts a *TemplateShape* geometry object into Database. a *TemplateShape* object.",
+        "description" : "",
+        "operationId" : "insert",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "group_id",
+          "in" : "path",
+          "description" : "The group identifier.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "n",
+          "in" : "query",
+          "description" : "The *TemplateShpae* name.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      }
+    },
+    "/templateGroups" : {
+      "get" : {
+        "tags" : [ "groups" ],
+        "summary" : "Gets a  of all available *TemplateGroup* objects. ",
+        "description" : "",
+        "operationId" : "getAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TemplateGroupCdb"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Template Group couldn't be found."
+          }
+        }
+      }
+    },
+    "/templateGroups/{groupId}" : {
+      "get" : {
+        "tags" : [ "groups" ],
+        "summary" : "Returns a *TemplateGroup* object.",
+        "description" : "",
+        "operationId" : "getById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "groupId",
+          "in" : "path",
+          "description" : "Unique identifer of the Template Group.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/TemplateGroupCdb"
+            }
+          },
+          "404" : {
+            "description" : "Template Group couldn't be found."
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AnnotatedType" : {
+      "properties" : {
+        "type" : {
+          "$ref" : "#/definitions/Type"
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        }
+      }
+    },
+    "Annotation" : {
+      "type" : "object"
+    },
+    "AreaCdb" : {
+      "properties" : {
+        "cartodbId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "jsonGeometry" : {
+          "type" : "string"
+        },
+        "jsonBounds" : {
+          "type" : "string"
+        },
+        "geometry" : {
+          "$ref" : "#/definitions/CdbMultiPolygon"
+        },
+        "bounds" : {
+          "$ref" : "#/definitions/BoundsCdb"
+        },
+        "geometryClass" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "layerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "areaId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "information" : {
+          "type" : "string"
+        },
+        "mutationCrudCd" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tariffzones" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AreaCdb"
+          }
+        },
+        "templates" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TemplateShapeCdb"
+          }
+        },
+        "providers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ProviderCdb"
+          }
+        },
+        "templateComposition" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "insert" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Array" : {
+      "type" : "object"
+    },
+    "BoundsCdb" : {
+      "properties" : {
+        "northeast" : {
+          "$ref" : "#/definitions/Location"
+        },
+        "southwest" : {
+          "$ref" : "#/definitions/Location"
+        }
+      }
+    },
+    "CdbMultiPolygon" : {
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "coordinates" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Array"
+          }
+        }
+      }
+    },
+    "CdbPoint" : {
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "coordinates" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "CertPath" : {
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "certificates" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Certificate"
+          }
+        },
+        "encoded" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "encodings" : {
+          "$ref" : "#/definitions/Iterator"
+        }
+      }
+    },
+    "Certificate" : {
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "encoded" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "publicKey" : {
+          "$ref" : "#/definitions/PublicKey"
+        }
+      }
+    },
+    "Class" : {
+      "properties" : {
+        "protectionDomain" : {
+          "$ref" : "#/definitions/ProtectionDomain"
+        },
+        "modifiers" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "interface" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "array" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "primitive" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "superclass" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "componentType" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "annotation" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "synthetic" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "classLoader" : {
+          "$ref" : "#/definitions/ClassLoader"
+        },
+        "typeParameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TypeVariable"
+          }
+        },
+        "genericSuperclass" : {
+          "$ref" : "#/definitions/Type"
+        },
+        "package" : {
+          "$ref" : "#/definitions/Package"
+        },
+        "interfaces" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Class"
+          }
+        },
+        "genericInterfaces" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "signers" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "enclosingMethod" : {
+          "$ref" : "#/definitions/Method"
+        },
+        "enclosingConstructor" : {
+          "$ref" : "#/definitions/Constructor"
+        },
+        "declaringClass" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "enclosingClass" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "simpleName" : {
+          "type" : "string"
+        },
+        "typeName" : {
+          "type" : "string"
+        },
+        "canonicalName" : {
+          "type" : "string"
+        },
+        "anonymousClass" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "localClass" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "memberClass" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "classes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Class"
+          }
+        },
+        "fields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Field"
+          }
+        },
+        "methods" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Method"
+          }
+        },
+        "constructors" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Constructor"
+          }
+        },
+        "declaredClasses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Class"
+          }
+        },
+        "declaredFields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Field"
+          }
+        },
+        "declaredMethods" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Method"
+          }
+        },
+        "declaredConstructors" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Constructor"
+          }
+        },
+        "enum" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "enumConstants" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CdbPoint"
+          }
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "annotatedSuperclass" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "annotatedInterfaces" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        }
+      }
+    },
+    "ClassLoader" : {
+      "type" : "object"
+    },
+    "CodeSigner" : {
+      "properties" : {
+        "signerCertPath" : {
+          "$ref" : "#/definitions/CertPath"
+        },
+        "timestamp" : {
+          "$ref" : "#/definitions/Timestamp"
+        }
+      }
+    },
+    "CodeSource" : {
+      "properties" : {
+        "location" : {
+          "type" : "string"
+        },
+        "certificates" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Certificate"
+          }
+        },
+        "codeSigners" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CodeSigner"
+          }
+        }
+      }
+    },
+    "Constructor" : {
+      "properties" : {
+        "parameterTypes" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "exceptionTypes" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "modifiers" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "parameterAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Array"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "synthetic" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "typeParameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TypeVariable"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "varArgs" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "parameterCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "genericParameterTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "genericExceptionTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "annotatedReturnType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "annotatedReceiverType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "annotatedParameterTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "parameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Parameter"
+          }
+        },
+        "annotatedExceptionTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "accessible" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Executable" : {
+      "properties" : {
+        "modifiers" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "synthetic" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "typeParameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TypeVariable"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "parameterTypes" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "varArgs" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "annotatedParameterTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "parameterCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "parameterAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Array"
+          }
+        },
+        "genericParameterTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "exceptionTypes" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "genericExceptionTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "annotatedReturnType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "parameters" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "annotatedReceiverType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "annotatedExceptionTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "accessible" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Field" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "modifiers" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "synthetic" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "enumConstant" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "genericType" : {
+          "$ref" : "#/definitions/Type"
+        },
+        "annotatedType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "accessible" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Iterator" : {
+      "type" : "object"
+    },
+    "LayerCdb" : {
+      "properties" : {
+        "layerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "providertypeId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "typeCd" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "modifierId" : {
+          "type" : "string"
+        },
+        "creatorId" : {
+          "type" : "string"
+        },
+        "copyFromLayerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "statusCd" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "draftCreated" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "stagingCreated" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "archiveCreated" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "providertype" : {
+          "$ref" : "#/definitions/ProvidertypeCdb"
+        },
+        "tariffzone" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "opArea" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "archived" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "List" : {
+      "properties" : {
+        "empty" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Location" : {
+      "properties" : {
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "Method" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "parameterTypes" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "exceptionTypes" : {
+          "$ref" : "#/definitions/Array"
+        },
+        "modifiers" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "parameterAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Array"
+          }
+        },
+        "synthetic" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "typeParameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TypeVariable"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "default" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "varArgs" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "parameterCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "genericReturnType" : {
+          "$ref" : "#/definitions/Type"
+        },
+        "genericParameterTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "genericExceptionTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "bridge" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "defaultValue" : {
+          "type" : "object"
+        },
+        "annotatedReturnType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "annotatedParameterTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "parameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Parameter"
+          }
+        },
+        "annotatedReceiverType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "annotatedExceptionTypes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "accessible" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Package" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "sealed" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "specificationTitle" : {
+          "type" : "string"
+        },
+        "specificationVersion" : {
+          "type" : "string"
+        },
+        "specificationVendor" : {
+          "type" : "string"
+        },
+        "implementationTitle" : {
+          "type" : "string"
+        },
+        "implementationVersion" : {
+          "type" : "string"
+        },
+        "implementationVendor" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Parameter" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "modifiers" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "synthetic" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "annotatedType" : {
+          "$ref" : "#/definitions/AnnotatedType"
+        },
+        "namePresent" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "declaringExecutable" : {
+          "$ref" : "#/definitions/Executable"
+        },
+        "parameterizedType" : {
+          "$ref" : "#/definitions/Type"
+        },
+        "implicit" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "varArgs" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "PermissionCollection" : {
+      "properties" : {
+        "readOnly" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Principal" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ProtectionDomain" : {
+      "properties" : {
+        "principals" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Principal"
+          }
+        },
+        "permissions" : {
+          "$ref" : "#/definitions/PermissionCollection"
+        },
+        "classLoader" : {
+          "$ref" : "#/definitions/ClassLoader"
+        },
+        "codeSource" : {
+          "$ref" : "#/definitions/CodeSource"
+        }
+      }
+    },
+    "ProviderCdb" : {
+      "properties" : {
+        "cartodbId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "jsonGeometry" : {
+          "type" : "string"
+        },
+        "jsonBounds" : {
+          "type" : "string"
+        },
+        "geometry" : {
+          "$ref" : "#/definitions/CdbPoint"
+        },
+        "bounds" : {
+          "$ref" : "#/definitions/BoundsCdb"
+        },
+        "geometryClass" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "providerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "saraPartnerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "providerReference" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "branchId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "providertypeId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "statusCd" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "addressline1" : {
+          "type" : "string"
+        },
+        "addressline2" : {
+          "type" : "string"
+        },
+        "street" : {
+          "type" : "string"
+        },
+        "houseNo" : {
+          "type" : "string"
+        },
+        "zip" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "countryCdi" : {
+          "type" : "string"
+        },
+        "phoneB1" : {
+          "type" : "string"
+        },
+        "phoneB2" : {
+          "type" : "string"
+        },
+        "mobile1" : {
+          "type" : "string"
+        },
+        "mobile2" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "information" : {
+          "type" : "string"
+        },
+        "ratingCd" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "lastModified" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastModifiedBy" : {
+          "type" : "string"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "createdBy" : {
+          "type" : "string"
+        },
+        "areaIds" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "interrupted" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "standby" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "area" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "lpartner" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "baseProvider" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "amag" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "amagUsPlus" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "brandSupplier" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "ProvidertypeCdb" : {
+      "properties" : {
+        "providerrolleId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "brancheId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "textDeutsch" : {
+          "type" : "string"
+        },
+        "textFranzoesisch" : {
+          "type" : "string"
+        },
+        "textItalienisch" : {
+          "type" : "string"
+        },
+        "textEnglisch" : {
+          "type" : "string"
+        },
+        "assistanceProvider" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "assistanceProviderSort" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "assistanceProjection" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "enableProvider" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "enableOpArea" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "enableTariffzone" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "providerStyleId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "opAreaStyleId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tariffzoneStyleId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "zoomLevel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "providerStyle" : {
+          "$ref" : "#/definitions/ShapeStyleCdb"
+        },
+        "opAreaStyle" : {
+          "$ref" : "#/definitions/ShapeStyleCdb"
+        },
+        "tariffzoneStyle" : {
+          "$ref" : "#/definitions/ShapeStyleCdb"
+        }
+      }
+    },
+    "PublicKey" : {
+      "properties" : {
+        "encoded" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "algorithm" : {
+          "type" : "string"
+        },
+        "format" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ShapeStyleCdb" : {
+      "properties" : {
+        "styleId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "polygonFill" : {
+          "type" : "string"
+        },
+        "polygonOpacity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "lineColor" : {
+          "type" : "string"
+        },
+        "lineWidth" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "TemplateGroupCdb" : {
+      "properties" : {
+        "groupId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "geometryTypeCd" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "textGerman" : {
+          "type" : "string"
+        },
+        "textFrench" : {
+          "type" : "string"
+        },
+        "textItalian" : {
+          "type" : "string"
+        },
+        "textEnglish" : {
+          "type" : "string"
+        },
+        "editorTemplate" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "editorSort" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "TemplateShapeCdb" : {
+      "properties" : {
+        "cartodbId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "jsonGeometry" : {
+          "type" : "string"
+        },
+        "jsonBounds" : {
+          "type" : "string"
+        },
+        "geometry" : {
+          "$ref" : "#/definitions/CdbMultiPolygon"
+        },
+        "bounds" : {
+          "$ref" : "#/definitions/BoundsCdb"
+        },
+        "geometryClass" : {
+          "$ref" : "#/definitions/Class"
+        },
+        "name1" : {
+          "type" : "string"
+        },
+        "name2" : {
+          "type" : "string"
+        },
+        "name3" : {
+          "type" : "string"
+        },
+        "value1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "value2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "value3" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "groupId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "Timestamp" : {
+      "properties" : {
+        "timestamp" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "signerCertPath" : {
+          "$ref" : "#/definitions/CertPath"
+        }
+      }
+    },
+    "Token" : {
+      "properties" : {
+        "uuid" : {
+          "type" : "string"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "expires" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "expired" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "Type" : {
+      "properties" : {
+        "typeName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TypeVariable" : {
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "bounds" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Type"
+          }
+        },
+        "annotatedBounds" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AnnotatedType"
+          }
+        },
+        "typeName" : {
+          "type" : "string"
+        },
+        "annotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        },
+        "declaredAnnotations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Annotation"
+          }
+        }
+      }
+    }
+  }
+}
