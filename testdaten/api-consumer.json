@@ -1,0 +1,7 @@
+{
+    "rate-limit": 1000,
+    "endpoint-url": "http://www.api-consumer01.axa.ch",
+    "api": "577e759f1326729178894e8f",
+    "application": "577e759f1326729178894e8f",
+    "authProvider":  {"type":"Mutual SSL"}
+}
