@@ -1,6 +1,7 @@
 var   express = require("express")
     , bodyParser = require('body-parser')
     , app = express()
+    , statRes = require('./routes/staticRouter')
     , apisRouter = require('./routers/apisRouter')
     , applicationsRouter = require('./routers/applicationsRouter')
     , tenantsRouter = require('./routers/tenantsRouter');
@@ -24,5 +25,10 @@ else
 app.use('/v1/apis', apisRouter);
 app.use('/v1/applications', applicationsRouter);
 app.use('/v1/tenants', tenantsRouter);
+
+
+// müssen letzte ".use()" sein!"
+app.use('/', statRes);
+app.use('/*', statRes);
 
 exports = module.exports = server;
