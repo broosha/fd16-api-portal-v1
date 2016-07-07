@@ -1,0 +1,318 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API for retrieving a list of partner request or details of a request",
+    "version" : "v1",
+    "title" : "Request Tracking API V1"
+  },
+  "host" : "soadev.ch.winterthur.com:8443",
+  "basePath" : "/request-tracking/",
+  "tags" : [ {
+    "name" : "v1requests"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/v1/requests" : {
+      "get" : {
+        "tags" : [ "v1requests" ],
+        "summary" : "Retrieve a list of all request of a partner by partyNumber",
+        "description" : "Party number is required",
+        "operationId" : "getRequests",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "party-number",
+          "in" : "query",
+          "description" : "Party Number",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "insurance-police-number",
+          "in" : "query",
+          "description" : "Insurance Police Number",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "lang",
+          "in" : "query",
+          "description" : "Language",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Request"
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/requests/{request-id}" : {
+      "get" : {
+        "tags" : [ "v1requests" ],
+        "summary" : "Retrieve the details of a request by request-id",
+        "description" : "request-id is required",
+        "operationId" : "getRequest",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "request-id",
+          "in" : "path",
+          "description" : "request-id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "lang",
+          "in" : "query",
+          "description" : "Language",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Request"
+            }
+          },
+          "404" : {
+            "description" : "Request ID not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AxaContact" : {
+      "properties" : {
+        "firstname" : {
+          "type" : "string"
+        },
+        "lastname" : {
+          "type" : "string"
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "street" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "zipCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Chronology" : {
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "calendarType" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ErrorInfo" : {
+      "properties" : {
+        "api" : {
+          "type" : "string"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "reasons" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/IErrorReason"
+          }
+        }
+      }
+    },
+    "ErrorResponse" : {
+      "properties" : {
+        "error" : {
+          "$ref" : "#/definitions/ErrorInfo"
+        }
+      }
+    },
+    "IErrorReason" : {
+      "properties" : {
+        "location" : {
+          "type" : "string"
+        },
+        "reasonCode" : {
+          "type" : "string"
+        },
+        "reasonMessage" : {
+          "type" : "string"
+        }
+      }
+    },
+    "LocalDateTime" : {
+      "properties" : {
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfWeek" : {
+          "type" : "string",
+          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
+        },
+        "dayOfYear" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "string",
+          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
+        },
+        "monthValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nano" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "second" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
+        }
+      }
+    },
+    "Request" : {
+      "required" : [ "concernStateIcon", "partyNumber", "requestId" ],
+      "properties" : {
+        "insurancePoliceNumber" : {
+          "type" : "string",
+          "description" : "Police Number"
+        },
+        "partyNumber" : {
+          "type" : "string",
+          "description" : "Party ID"
+        },
+        "requestId" : {
+          "type" : "string",
+          "description" : "Tracking ID"
+        },
+        "concernStateIcon" : {
+          "type" : "string",
+          "description" : "Icon Definition"
+        },
+        "concernState" : {
+          "type" : "string",
+          "description" : "overall situation"
+        },
+        "concernDate" : {
+          "description" : "Date of first registration",
+          "$ref" : "#/definitions/LocalDateTime"
+        },
+        "concernTitle" : {
+          "type" : "string",
+          "description" : "Request title"
+        },
+        "concernStateList" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SubRequest"
+          }
+        }
+      }
+    },
+    "SubRequest" : {
+      "required" : [ "subConcernContact", "subConcernReference", "subConcernTitle" ],
+      "properties" : {
+        "subConcernContact" : {
+          "description" : "responsible AXA contact of concern",
+          "$ref" : "#/definitions/AxaContact"
+        },
+        "subConcernReference" : {
+          "type" : "string",
+          "description" : "concern reference of third party systems"
+        },
+        "subConcernTitle" : {
+          "type" : "string",
+          "description" : "Sub concern title"
+        },
+        "wfstepList" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/WorkflowStep"
+          }
+        }
+      }
+    },
+    "WorkflowStep" : {
+      "required" : [ "workflowStepDate", "workflowStepDetailsText", "workflowStepDuedate", "workflowStepIconName", "workflowStepName", "workflowStepStateSequence" ],
+      "properties" : {
+        "workflowStepStateSequence" : {
+          "type" : "string",
+          "description" : "State of Workflowstep",
+          "enum" : [ "DONE", "OPEN", "NEXT" ]
+        },
+        "workflowStepDetailsText" : {
+          "type" : "string",
+          "description" : "Details"
+        },
+        "workflowStepName" : {
+          "type" : "string",
+          "description" : "Name"
+        },
+        "workflowStepDuedate" : {
+          "description" : "Due Date",
+          "$ref" : "#/definitions/LocalDateTime"
+        },
+        "workflowStepDate" : {
+          "description" : "Date of workflow step occur",
+          "$ref" : "#/definitions/LocalDateTime"
+        },
+        "workflowStepIconName" : {
+          "type" : "string",
+          "description" : "Icon definition"
+        }
+      }
+    }
+  }
+}

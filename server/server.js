@@ -1,10 +1,12 @@
 var   express = require("express")
-    , bodyParser = require('body-parser');
+    , bodyParser = require('body-parser')
+    , app = express()
+    , apisRouter = require('./routers/apisRouter')
+    , applicationsRouter = require('./routers/applicationsRouter')
+    , tenantsRouter = require('./routers/tenantsRouter')
+    , usersRouter = require('./routers/usersRouter');
     
-var app = express();
 app.use(bodyParser.json());
-
-var applicationsRouter = require('./routers/applicationsRouter');
 
 var server;
 if(process.env.PORT == undefined || process.env.PORT == null)
@@ -20,6 +22,9 @@ else
     });
 }
 
-app.use('/api/v1/applications', applicationsRouter);
+app.use('/v1/apis', apisRouter);
+app.use('/v1/applications', applicationsRouter);
+app.use('/v1/tenants', tenantsRouter);
+app.use('/v1/users', usersRouter);
 
 exports = module.exports = server;
