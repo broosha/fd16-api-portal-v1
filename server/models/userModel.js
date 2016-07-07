@@ -10,7 +10,7 @@ var userSchema = Schema({
       ref: 'tenant',
       required: true
     },
-    roles: [{ type: Schema.Types.ObjectId, ref: 'role' }]
+    roles: [{ type: Schema.Types.ObjectId, ref: 'role' }],
 });
 
 module.exports = mongoose.model('user', userSchema);

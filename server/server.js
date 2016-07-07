@@ -3,7 +3,8 @@ var   express = require("express")
     , app = express()
     , apisRouter = require('./routers/apisRouter')
     , applicationsRouter = require('./routers/applicationsRouter')
-    , tenantsRouter = require('./routers/tenantsRouter');
+    , tenantsRouter = require('./routers/tenantsRouter')
+    , usersRouter = require('./routers/usersRouter');
     
 app.use(bodyParser.json());
 
@@ -24,5 +25,6 @@ else
 app.use('/v1/apis', apisRouter);
 app.use('/v1/applications', applicationsRouter);
 app.use('/v1/tenants', tenantsRouter);
+app.use('/v1/users', usersRouter);
 
 exports = module.exports = server;
