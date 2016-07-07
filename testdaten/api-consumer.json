@@ -1,7 +1,12 @@
 {
     "rate-limit": 1000,
     "endpoint-url": "http://www.api-consumer01.axa.ch",
-    "api": "577e759f1326729178894e8f",
-    "application": "577e759f1326729178894e8f",
-    "authProvider":  {"type":"Mutual SSL"}
+    "api": "https://api.axa.ch/rest/po/partner/v1/",
+    "application": "APP-195",
+    "authProvider":  {
+        "auth-provider-type":"OAuth",
+        "client-id": "12398asd9as8dfasd9f79f",
+        "oauth-scope": "b2e-axa-ch",
+        "client-secret": "asdasd8as7das8d"
+    }
 }

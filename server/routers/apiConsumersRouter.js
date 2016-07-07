@@ -6,9 +6,9 @@ var express = require('express'),
 var db = new DBConnector();
 
 router.get('/', function(req, res, next) {
-    var apiId = req.params.apiId;
+    var apiUrl = req.query.apiUrl;
 
-    db.ApiConsumer.find({api: apiId}).exec(function(err, apiConsumers) {
+    db.ApiConsumer.find({api: apiUrl}).exec(function(err, apiConsumers) {
         if (err) return next(err);
         res.json(apiConsumers);
     });
