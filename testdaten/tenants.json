@@ -1,0 +1,18 @@
+[
+      {
+        "name": "CH-AXA",
+        "description": "AXA Switzerland"
+      },
+      {
+        "name": "FR-AXA",
+        "description": "AXA France"
+      },
+      {
+        "name": "CH-TWINT",
+        "description": "B2B Partner TWINT, Switzerland"
+      },
+      {
+        "name": "PUBLIC",
+        "description": "Open APIs for free usage"
+      }
+]
