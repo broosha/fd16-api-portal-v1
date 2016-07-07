@@ -1,7 +1,6 @@
 [
   {
-    "_id": "577e5647e2af4ef061b97911",
-    "api-uri": "https://api.axa.ch/rest/po/partner/v1/",
+   "api-uri": "https://api.axa.ch/rest/po/partner/v1/",
     "description": "PO Partner REST API for responsive myAXA",
     "version": 1,
     "swagger-doc": "http://petstore.swagger.io/?url=http://lxfjet05.dev.axa-ch.intraxa:17129/partner/swagger.json?api=/apidocs/partner/v1#!/partner/getPartner",
@@ -14,10 +13,10 @@
     "visibility": [
       "CH-AXA",
       "FR-AXA"
-    ]
+    ],
+     "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97912",
     "api-uri": "https://api.axa.ch/rest/po/contract/v1/",
     "description": "PO Contract REST API for responsive myAXA",
     "version": 1,
@@ -31,10 +30,10 @@
     "visibility": [
       "CH-AXA",
       "FR-AXA"
-    ]
+    ],
+    "tenant": 2
   },
   {
-    "_id": "577e5647e2af4ef061b97913",
     "api-uri": "https://api.axa.ch/rest/po/document/v1/",
     "description": "PO Document REST API for responsive myAXA",
     "version": 1,
@@ -48,10 +47,10 @@
     "visibility": [
       "CH-AXA",
       "FR-AXA"
-    ]
+    ],
+    "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97914",
     "api-uri": "https://api.axa.ch/rest/po/customer-portal/v1/",
     "description": "PO Customer Portal REST API for responsive myAXA",
     "version": 1,
@@ -65,10 +64,10 @@
     "visibility": [
       "CH-AXA",
       "FR-AXA"
-    ]
+    ],
+    "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97915",
     "api-uri": "https://api.axa.ch/rest/po/vehicle-registration/v1/",
     "description": "REST API for vehicle registration based on the ocr recognition of the vehicle registration document.",
     "version": 1,
@@ -80,10 +79,10 @@
     "visibility": [
       "CH-AXA",
       "Public"
-    ]
+    ],
+    "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97916",
     "api-uri": "https://api.axa.ch/rest/partner-support/v1/",
     "description": "CRM OData Partner Support API",
     "version": 1,
@@ -94,10 +93,10 @@
     ],
     "visibility": [
       "CH-AXA"
-    ]
+    ],
+    "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97917",
     "api-uri": "https://api.axa.ch/rest/po/request-trackingl/v1/",
     "description": "REST API für das Anliegentracking",
     "version": 1,
@@ -109,10 +108,10 @@
     ],
     "visibility": [
       "CH-AXA"
-    ]
+    ],
+    "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97918",
     "api-uri": "https://api.axa.ch/rest/axa-gis/v1/",
     "description": "REST API for GIS Provider",
     "version": 1,
@@ -125,10 +124,10 @@
     "visibility": [
       "CH-AXA",
       "Public"
-    ]
+    ],
+    "tenant": 1
   },
   {
-    "_id": "577e5647e2af4ef061b97919",
     "api-uri": "https://api.axa.ch/rest/po/claim-report/v1/",
     "description": "REST API for the claim reporting",
     "version": 1,
@@ -141,6 +140,7 @@
     ],
     "visibility": [
       "CH-AXA"
-    ]
+    ],
+    "tenant": 1
   }
 ]
