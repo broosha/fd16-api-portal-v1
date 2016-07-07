@@ -6,7 +6,7 @@ var userSchema = Schema({
     lastname: { type: String, required: true},
     mail: { type: String, required: true},
     tenant: { 
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.Number,
       ref: 'tenant',
       required: true
     },
