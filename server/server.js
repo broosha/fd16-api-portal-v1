@@ -3,6 +3,7 @@ var   express = require("express")
     , app = express()
     , statRes = require('./routers/staticRouter')
     , apisRouter = require('./routers/apisRouter')
+    , apiConsumersRouter = require('./routers/apiConsumersRouter')
     , applicationsRouter = require('./routers/applicationsRouter')
     , tenantsRouter = require('./routers/tenantsRouter')
     , usersRouter = require('./routers/usersRouter');
@@ -27,7 +28,7 @@ app.use('/v1/apis', apisRouter);
 app.use('/v1/applications', applicationsRouter);
 app.use('/v1/tenants', tenantsRouter);
 app.use('/v1/users', usersRouter);
-
+app.use('/v1/api-consumers', apiConsumersRouter);
 
 // müssen letzte ".use()" sein!"
 app.use('/', statRes);
