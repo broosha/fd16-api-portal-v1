@@ -6,7 +6,7 @@ var  express = require('express')
 var db = new DBConnector();
 
 router.get('/', function(req,res,next){
-   db.Application.find( function(err, applications){
+   db.Application.find().populate('tenant').exec( function(err, applications){
       if (err) return next(err);
       res.json(applications);
    });

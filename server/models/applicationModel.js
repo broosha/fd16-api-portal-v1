@@ -6,7 +6,7 @@ var applicationSchema = Schema({
     shortname: { type: String, required: true},
     mailbox: { type: String, required: false},
     tenant: { 
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.Number,
       ref: 'tenant',
       required: true
     }
