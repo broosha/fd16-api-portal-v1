@@ -3,24 +3,24 @@
     "name": "Max",
     "lastname": "von Dax",
     "mail": "max@dax.ch",
-    "tenant": 1
+    "tenant": "CH-AXA"
   },
   {
     "name": "Leo",
     "lastname": "Muster",
     "mail": "leo@muster.ch",
-    "tenant": 1
+    "tenant": "CH-AXA"
   },
   {
     "name": "Carla",
     "lastname": "Bruni",
     "mail": "carla@bruni.fr",
-    "tenant": 2
+    "tenant": "FR-AXA"
   },
   {
     "name": "Anonymous",
     "lastname": "Anonymous",
     "mail": "anonymous@anonymous.com",
-    "tenant": 4
+    "tenant": "PUBLIC"
   }
 ]

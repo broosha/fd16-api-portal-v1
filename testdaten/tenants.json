@@ -1,22 +1,18 @@
 [
       {
-        "_id": 1,
-        "name": "CH-AXA",
+        "_id": "CH-AXA",
         "description": "AXA Switzerland"
       },
       {
-          "_id": 2,
-        "name": "FR-AXA",
+        "_id": "FR-AXA",
         "description": "AXA France"
       },
       {
-          "_id": 3,
-        "name": "CH-TWINT",
+        "_id": "CH-TWINT",
         "description": "B2B Partner TWINT, Switzerland"
       },
       {
-          "_id": 4,
-        "name": "PUBLIC",
+        "_id": "PUBLIC",
         "description": "Open APIs for free usage"
       }
 ]
