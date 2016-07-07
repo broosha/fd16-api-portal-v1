@@ -1,7 +1,7 @@
 var   express = require("express")
     , bodyParser = require('body-parser')
     , app = express()
-    , statRes = require('./routes/staticRouter')
+    , statRes = require('./routers/staticRouter')
     , apisRouter = require('./routers/apisRouter')
     , applicationsRouter = require('./routers/applicationsRouter')
     , tenantsRouter = require('./routers/tenantsRouter')
