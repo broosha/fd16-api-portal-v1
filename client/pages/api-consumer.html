@@ -23,9 +23,9 @@
     <input type="text" class="form-control" id="endPointUrl" ng-value="endPointUrlValue" placeholder="http://">
   </fieldset>
   <fieldset class="form-group">
+        <label for="oAuthId">oAuth Scope List*</label>
     
-    
-            <select multiple class="form-control"
+            <select id="oAuthId" multiple class="form-control"
             ng-model="selectedAuthScope">
             
             <option ng-repeat="oAuthScope in oAuthScopeList">
@@ -33,5 +33,5 @@
             </option>
   </fieldset>
  
-  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="submit" ng-click="saveConsumer()" class="btn btn-primary btn-lg">Save</button>
 </form>

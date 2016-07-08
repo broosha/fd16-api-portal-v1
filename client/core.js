@@ -115,6 +115,39 @@ function apiConsumerController($scope, $http, $location, apiConsumer) {
   
   $scope.endPointUrlValue = apiConsumer.getApiConsumer()['endpoint-url']
   
+  $scope.saveConsumer = function() {
+      
+      
+    var consumerItem = [
+        {
+        _id: apiConsumer.getApiConsumer()['_id'],
+        api: apiConsumer.getApiConsumer()['api'],
+        application: $scope.application,
+        authProvider: 
+                {
+                    'auth-provider-type': $scope.authProvider,
+                    'client-id': apiConsumer.getApiConsumer()['authProvider']['client-id'],
+                    'client-secret': apiConsumer.getApiConsumer()['authProvider']['client-secret'],
+                    'oauth-scope': $scope.oAuthScopeList
+                             
+                        
+                        
+                },
+        
+         'endpoint-url': $scope.endPointUrlValue,
+         'rate-limit': $scope.rateLimit
+            
+        }
+        
+        ];
+    
+      
+      
+  apiConsumer.addApiConsumer(consumerItem);
+      
+  }
+  
+  
   
   
   
