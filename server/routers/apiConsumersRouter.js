@@ -6,9 +6,9 @@ var express = require('express'),
 var db = new DBConnector();
 
 router.get('/', function(req, res, next) {
-    var apiUrl = req.query.apiUrl;
+    var apiUrl = req.query.apiUrl.trim();
 
-    db.ApiConsumer.find({api: apiUrl}).exec(function(err, apiConsumers) {
+    db.ApiConsumer.find({api: apiUrl}).populate('application').exec(function(err, apiConsumers) {
         if (err) return next(err);
         res.json(apiConsumers);
     });
@@ -29,7 +29,7 @@ router.put('/:id', function(req, res, next) {
       if (err) return next(err);
       if (!apiConsumer) return res.json('FEHLER: ApiConsumer mit ID: '+apiConsumerId+' nicht gefunden!');
       
-      apiConsumer = req.body;
+      apiConsumer._doc = req.body;
       
       apiConsumer.save(function(err){
          if (err) return next(err);

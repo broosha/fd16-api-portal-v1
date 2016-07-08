@@ -1,0 +1,42 @@
+<div class="row">
+   
+    <div class="col-md-12">
+      <!--Body content-->
+    
+        <select 
+            ng-model="selectedApiId"
+            ng-change="setConsumerList()">
+            
+            <option ng-repeat="api in apiList">
+                {{api._id}}
+            </option>
+            
+        </select>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>APPL-ID</th>
+                    <th>Shortname</th>
+                    <th>Endpoint-URL</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr ng-repeat="consumer in consumerList">
+                    <td title="'APPL-ID'">{{consumer.application._id}}</td>
+                    <td title="'Shortname'">{{consumer.application.shortname}}</td>
+                    <td title="'endpoint-url'">{{consumer["endpoint-url"]}}</td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="editConsumer()">EDIT</button></td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteConsumer()">DEL</button></td>
+                </tr>
+            </tbody>
+            
+        </table>
+        
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="newConsumer()">NEW</button>
+
+    </div>
+    
+    
+</div>
