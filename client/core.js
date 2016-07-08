@@ -104,6 +104,13 @@ function apiConsumerController($scope, $http, $location, apiConsumer) {
   console.log(apiConsumer.getApiConsumer())
   
   $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
+  $scope.appId = apiConsumer.getApiConsumer()['application']
+  $scope.authProvider = apiConsumer.getApiConsumer()['authProvider']['auth-provider-type']
+  
+  $scope.oAuthScopeList = apiConsumer.getApiConsumer()['authProvider']['oauth-scope']
+  
+  $scope.endPointUrlValue = apiConsumer.getApiConsumer()['endpoint-url']
+  
   
   
   
