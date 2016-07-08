@@ -1,3 +1,4 @@
+
 <div class="row">
    
     <div class="col-md-12">
@@ -13,7 +14,7 @@
             
         </select>
         
-        <table class="table">
+        <table class="table" >
             <thead>
                 <tr>
                     <th>APPL-ID</th>
@@ -27,8 +28,8 @@
                     <td title="'APPL-ID'">{{consumer.application._id}}</td>
                     <td title="'Shortname'">{{consumer.application.shortname}}</td>
                     <td title="'endpoint-url'">{{consumer["endpoint-url"]}}</td>
-                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="editConsumer()">EDIT</button></td>
-                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteConsumer()">DEL</button></td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="editApiConsumer(consumer)">EDIT</button></td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteApiConsumer()">DEL</button></td>
                 </tr>
             </tbody>
             

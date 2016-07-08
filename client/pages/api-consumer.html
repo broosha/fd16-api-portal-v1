@@ -1,0 +1,37 @@
+<h3>API Consumer</h3>
+
+<form>
+  <fieldset class="form-group">
+    <label for="searchApplication">Application*</label>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="inputAuthProvider">Auth Provider*</label>
+    <input type="text" class="form-control" id="inputAuthProvider" placeholder="Auth Provider">
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="rateLimit">Rate Limit*</label>
+    <input type="text" class="form-control" id="rateLimit" placeholder="Rate Limit" ng-value="rateLimit">
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="endPointUrl">End Point URL*</label>
+    <input type="text" class="form-control" id="endPointUrl" placeholder="http://">
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="oAuthScope">oAuth Scope</label>
+    <select multiple class="form-control" id="oAuthScope">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </fieldset>
+ 
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
