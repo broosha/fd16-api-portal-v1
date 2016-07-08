@@ -20,6 +20,10 @@ apiPortal.config(function($routeProvider) {
      .when('/api-consumer', {
         templateUrl : 'pages/api-consumer.html',
         controller  : 'apiConsumerController'
+    })
+    .when('/api-consumer-details', {
+        templateUrl : 'pages/api-consumer-details.html',
+        controller  : 'apiConsumerDetailsController'
     });
 });
 
@@ -106,5 +110,19 @@ function apiConsumerController($scope, $http, $location, apiConsumer) {
   $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
   
   
+  
+}
+
+
+function apiConsumerDetailsController($scope, $http, $location, apiConsumer) {
+  
+  console.log('Der Consumer wurde erfolgreich übertragen: '+apiConsumer);
+  console.log(apiConsumer.getApiConsumer())
+  
+  $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
+  
+  $scope.gotoApiList = function() {
+    $location.path('/home');
+  }
   
 }
