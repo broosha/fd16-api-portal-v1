@@ -16,16 +16,45 @@ apiPortal.config(function($routeProvider) {
     .when('/api-list', {
         templateUrl : 'pages/api-list.html',
         controller  : 'apiListController'
+    })
+     .when('/api-consumer', {
+        templateUrl : 'pages/api-consumer.html',
+        controller  : 'apiConsumerController'
     });
 });
 
+
+
+
 function mainController($scope, $http, $location) {
     $scope.login = function() {
+
         $location.path('/api-list')
     };
 }
 
-function apiListController($scope, $http, $location) {
+
+apiPortal.service('apiConsumer', function() {
+  var apiConsumer;
+
+  var addApiConsumer = function(newObj) {
+      apiConsumer = newObj;
+  };
+
+  var getApiConsumer = function(){
+      return apiConsumer;
+  };
+
+  return {
+    addApiConsumer: addApiConsumer,
+    getApiConsumer: getApiConsumer
+  };
+
+});
+
+
+
+function apiListController($scope, $http, $location, apiConsumer) {
     $scope.apiList = []
     $scope.consumerList = []
     
@@ -39,6 +68,8 @@ function apiListController($scope, $http, $location) {
         });
         
         $scope.setConsumerList = function () {
+
+
             $http.get('/v1/api-consumers?apiUrl='+$scope.selectedApiId)
                 .success(function(data) {
                     $scope.consumerList = data;
@@ -48,6 +79,32 @@ function apiListController($scope, $http, $location) {
                 .error(function(data) {
                     console.log('Error: ' + data);
                 });
+                
+
         }
+        
+        $scope.editApiConsumer = function(data) {
+                console.log('Edit Api Consumer :'+data);
+                
+                            apiConsumer.addApiConsumer(data);
+
+                
+                $location.path('/api-consumer');
+            
+        }
+        
     //$location.path('/home');
 };
+
+
+
+function apiConsumerController($scope, $http, $location, apiConsumer) {
+  
+  console.log('Der Consumer wurde erfolgreich übertragen: '+apiConsumer);
+  console.log(apiConsumer.getApiConsumer())
+  
+  $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
+  
+  
+  
+}
