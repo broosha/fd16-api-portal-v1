@@ -119,10 +119,11 @@ function apiConsumerDetailsController($scope, $http, $location, apiConsumer) {
   console.log('Der Consumer wurde erfolgreich übertragen: '+apiConsumer);
   console.log(apiConsumer.getApiConsumer())
   
-  $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
+  /*$scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit'];*/
   
   $scope.gotoApiList = function() {
-    $location.path('/home');
-  }
+
+        $location.path('/api-list')
+    };
   
 }
