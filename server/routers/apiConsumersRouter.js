@@ -2,7 +2,8 @@ var express = require('express'),
     DBConnector = require('../DBConnector'),
     router = express.Router(),
     mongoose = require('mongoose'),
-    uuid = require('node-uuid');
+    uuid = require('node-uuid'),
+    as = require('async');
 
 var db = new DBConnector();
 
@@ -52,37 +53,34 @@ router.post('/', function(req, res, next) {
 
 router.put('/:id', function(req, res, next) {
     var apiConsumerId = req.params.id;
-    db.ApiConsumer.findById(apiConsumerId,function(err, apiConsumer){
-      if (err) return next(err);
-      if (!apiConsumer) return res.json('FEHLER: ApiConsumer mit ID: '+apiConsumerId+' nicht gefunden!');
-      
-      var lastAuthProviderType = apiConsumer._doc.authProvider["auth-provider-type"];
-      var newAuthProviderType = req.body.authProvider["auth-provider-type"];
-      
-        apiConsumer._doc["rate-limit"] = req.body["rate-limit"];
-        apiConsumer._doc["endpoint-url"] = req.body["endpoint-url"];
-        apiConsumer._doc["authProvider"]["auth-provider-type"] = req.body["authProvider"]["auth-provider-type"];
-        apiConsumer._doc["authProvider"]["oauth-scope"] = req.body["authProvider"]["oauth-scope"];
-      
-      if(lastAuthProviderType != newAuthProviderType) {
-          addMAAMCredentials(apiConsumer._doc);
-      }
-      
-       /* apiConsumer.update(
-            { "rate-limit": req.body["rate-limit"] }, 
-            { "endpoint-url": req.body["endpoint-url"] }, 
-            { authProvider: req.body["authProvider"] }, 
-            function (err, raw) {
-                if(err) return console.log(err);
-                console.log('The raw response from Mongo was ', raw);
-            }); */
-      
-      apiConsumer.save(function(err){
-        if (err) return next(err);
-        res.json(apiConsumer);
-      }); 
-      
+    
+    as.series([
+        function(callback){
+            db.ApiConsumer.findById(apiConsumerId, function(err, apiConsumer){
+              if (err) return next(err);
+              if (!apiConsumer) return res.json('FEHLER: ApiConsumer mit ID: '+apiConsumerId+' nicht gefunden!');
+              var prevType = apiConsumer._doc.authProvider["auth-provider-type"];
+              callback(null, prevType);
+            });
+        }
+    ],
+    function(err, args){
+        if(err) return next(err);
+        var previousAuthProviderType = args[0];
+        
+        var newAuthProviderType = req.body.authProvider["auth-provider-type"];
+        if(previousAuthProviderType != newAuthProviderType) {
+          addMAAMCredentials(req.body);
+        }
+        
+        db.ApiConsumer.findByIdAndUpdate(apiConsumerId, req.body, {new: true}, function(err, model) {
+          console.log(err);
+          console.log(model);
+          if(err) return next(err);
+          res.json(model);
+        });
     });
+    
 });
 
 router.delete('/:id', function(req, res, next) {
