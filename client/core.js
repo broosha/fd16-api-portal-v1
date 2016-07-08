@@ -1,9 +1,9 @@
-// public/core.js
-var scotchTodo = angular.module('scotchTodo', [
+
+var apiPortal = angular.module('apiPortal', [
     'ngRoute'
 ]);
 
-scotchTodo.config(function($routeProvider) {
+apiPortal.config(function($routeProvider) {
     $routeProvider
 
     // route for the home page
@@ -20,10 +20,7 @@ scotchTodo.config(function($routeProvider) {
 });
 
 function mainController($scope, $http, $location) {
-    $scope.formData = {};
-
-    // when submitting the add form, send the text to the node API
-    $scope.createTodo = function() {
+    $scope.login = function() {
         $location.path('/api-list')
     };
 }
@@ -32,7 +29,7 @@ function apiListController($scope, $http, $location) {
     $scope.apiList = []
     $scope.consumerList = []
     
-     $http.get('/v1/apis', $scope.formData)
+    $http.get('/v1/apis', $scope.formData)
         .success(function(data) {
             $scope.apiList = data
             console.log(data);
@@ -52,4 +49,5 @@ function apiListController($scope, $http, $location) {
                     console.log('Error: ' + data);
                 });
         }
-}
+    //$location.path('/home');
+};
