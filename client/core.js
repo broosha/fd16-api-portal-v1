@@ -90,11 +90,22 @@ function apiListController($scope, $http, $location, apiConsumer) {
         $scope.editApiConsumer = function(data) {
                 console.log('Edit Api Consumer :'+data);
                 
-                            apiConsumer.addApiConsumer(data);
+                apiConsumer.addApiConsumer(data);
 
-                
                 $location.path('/api-consumer');
-            
+        }
+        
+        $scope.deleteApiConsumer = function(selectedConsumer, index) {
+                console.log('Delete Api Consumer :'+selectedConsumer);
+                
+                $http.delete('/v1/api-consumers/'+selectedConsumer._id)
+                .success(function(data) {
+                    $scope.consumerList.splice(index, 1);
+                    console.log(data);
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
         }
         
     //$location.path('/home');

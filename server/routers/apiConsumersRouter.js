@@ -89,4 +89,10 @@ router.delete('/:id', function(req, res, next) {
     res.json('OK');
 });
 
+// ADMIN FUNCTION: DELETE all api-consumers
+router.delete('/',  function(req,res,next){
+   db.ApiConsumer.find().remove().exec();
+   res.json('OK');
+});
+
 module.exports = router;

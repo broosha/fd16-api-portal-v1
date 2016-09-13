@@ -34,7 +34,7 @@
                     <td title="'Shortname'">{{consumer.application.shortname}}</td>
                     <td title="'endpoint-url'">{{consumer["endpoint-url"]}}</td>
                     <td><button type="submit" class="btn btn-primary btn-lg" ng-click="editApiConsumer(consumer)">EDIT</button></td>
-                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteApiConsumer()">DEL</button></td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteApiConsumer(consumer,$index)">DEL</button></td>
                 </tr>
             </tbody>
             
