@@ -3,17 +3,22 @@
    
     <div class="col-md-12">
       <!--Body content-->
-    
-        <select 
-            ng-model="selectedApiId"
-            ng-change="setConsumerList()">
-            
-            <option ng-repeat="api in apiList">
-                {{api._id}}
-            </option>
-            
-        </select>
-        
+        <table class="table" >
+           <tbody>
+                <tr >
+                    <td style="font-weight:bold; color:red">
+                        Select API:
+                    </td>
+                    <td>
+                        <select ng-model="selectedApiId" ng-change="setConsumerList()">
+                            <option ng-repeat="api in apiList">
+                                {{api._id}}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <table class="table" >
             <thead>
                 <tr>
@@ -38,6 +43,4 @@
         <button type="submit" class="btn btn-primary btn-lg" ng-click="newConsumer()">NEW</button>
 
     </div>
-    
-    
 </div>
