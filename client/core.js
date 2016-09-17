@@ -121,7 +121,7 @@ function apiConsumerController($scope, $http, $location, apiConsumer) {
     console.log(apiConsumer.getApiConsumer())
   
     $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
-    $scope.appId = apiConsumer.getApiConsumer()['application']
+    $scope.applId = apiConsumer.getApiConsumer()['application']['_id']
     $scope.authProvider = apiConsumer.getApiConsumer()['authProvider']['auth-provider-type']
   
     $scope.oAuthScopeList = apiConsumer.getApiConsumer()['authProvider']['oauth-scope']

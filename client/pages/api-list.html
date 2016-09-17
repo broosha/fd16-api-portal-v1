@@ -26,6 +26,7 @@
             </tbody>
         </table>
         <table class="table" ng-if="consumerList">
+            <caption style="text-align:left;font-weight:bold;margin-left:5px;font-size: 130%;">Registered API Consumer</caption>
             <thead>
                 <tr>
                     <th>APPL-ID</th>
@@ -46,7 +47,8 @@
             
         </table>
         
-        <button type="submit" class="btn btn-primary btn-lg" ng-if="selectedApiId" ng-click="newApiConsumer()" style="margin-left:825px;">Add new consumer</button>
-
+        <div class="text-right" ng-if="selectedApiId">
+            <button type="submit" class="btn btn-primary btn-lg" ng-click="newApiConsumer()">Add new consumer</button>
+        </div>
     </div>
 </div>
