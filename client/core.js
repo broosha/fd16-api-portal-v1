@@ -21,10 +21,6 @@ apiPortal.config(function($routeProvider) {
         templateUrl : 'pages/api-consumer.html',
         controller  : 'apiConsumerController'
     })
-    .when('/api-consumer-details', {
-        templateUrl : 'pages/api-consumer-details.html',
-        controller  : 'apiConsumerDetailsController'
-    });
 });
 
 
@@ -95,6 +91,12 @@ function apiListController($scope, $http, $location, apiConsumer) {
                 $location.path('/api-consumer');
         }
         
+        $scope.newApiConsumer = function() {
+                console.log('New Api Consumer');
+                
+                $location.path('/api-consumer');
+        }
+        
         $scope.deleteApiConsumer = function(selectedConsumer, index) {
                 console.log('Delete Api Consumer :'+selectedConsumer);
                 
@@ -115,18 +117,26 @@ function apiListController($scope, $http, $location, apiConsumer) {
 
 function apiConsumerController($scope, $http, $location, apiConsumer) {
   
-  console.log('Der Consumer wurde erfolgreich übertragen: '+apiConsumer);
-  console.log(apiConsumer.getApiConsumer())
+    console.log('Der Consumer wurde erfolgreich übertragen: '+apiConsumer);
+    console.log(apiConsumer.getApiConsumer())
   
-  $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
-  $scope.appId = apiConsumer.getApiConsumer()['application']
-  $scope.authProvider = apiConsumer.getApiConsumer()['authProvider']['auth-provider-type']
+    $scope.rateLimit = apiConsumer.getApiConsumer()['rate-limit']
+    $scope.appId = apiConsumer.getApiConsumer()['application']
+    $scope.authProvider = apiConsumer.getApiConsumer()['authProvider']['auth-provider-type']
   
-  $scope.oAuthScopeList = apiConsumer.getApiConsumer()['authProvider']['oauth-scope']
+    $scope.oAuthScopeList = apiConsumer.getApiConsumer()['authProvider']['oauth-scope']
   
-  $scope.endPointUrlValue = apiConsumer.getApiConsumer()['endpoint-url']
+    $scope.endPointUrlValue = apiConsumer.getApiConsumer()['endpoint-url']
   
-  $scope.saveConsumer = function() {
+  
+    $scope.saveApiConsumer = function() {
+        console.log('Save Api Consumer');
+        $location.path('/api-list');
+    }
+        
+  
+  
+    $scope.saveConsumer = function() {
       
       
     var consumerItem = [

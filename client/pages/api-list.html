@@ -3,14 +3,20 @@
    
     <div class="col-md-12">
       <!--Body content-->
+        
+        <div class="col-md-12 text-center">
+            <h2 style="color:#08088A;"><b>API PORTAL</b></h2>
+            <br/>
+        </div>
+        
         <table class="table" >
            <tbody>
                 <tr >
-                    <td style="font-weight:bold; color:red">
+                    <td style="font-weight:bold; color:#08088A;">
                         Select API:
                     </td>
                     <td>
-                        <select ng-model="selectedApiId" ng-change="setConsumerList()">
+                        <select ng-model="selectedApiId" ng-change="setConsumerList()" style="width: 600px;">
                             <option ng-repeat="api in apiList">
                                 {{api._id}}
                             </option>
@@ -19,7 +25,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table" >
+        <table class="table" ng-if="consumerList">
             <thead>
                 <tr>
                     <th>APPL-ID</th>
@@ -33,14 +39,14 @@
                     <td title="'APPL-ID'">{{consumer.application._id}}</td>
                     <td title="'Shortname'">{{consumer.application.shortname}}</td>
                     <td title="'endpoint-url'">{{consumer["endpoint-url"]}}</td>
-                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="editApiConsumer(consumer)">EDIT</button></td>
-                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteApiConsumer(consumer,$index)">DEL</button></td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="editApiConsumer(consumer)">Edit</button></td>
+                    <td><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteApiConsumer(consumer,$index)" style="background-color:red;">Delete</button></td>
                 </tr>
             </tbody>
             
         </table>
         
-        <button type="submit" class="btn btn-primary btn-lg" ng-click="newConsumer()">NEW</button>
+        <button type="submit" class="btn btn-primary btn-lg" ng-if="selectedApiId" ng-click="newApiConsumer()" style="margin-left:825px;">Add new consumer</button>
 
     </div>
 </div>
