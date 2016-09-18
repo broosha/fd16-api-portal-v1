@@ -4,7 +4,6 @@ var mongoose = require("mongoose")
 var apiConsumerSchema = Schema({
     "rate-limit": { type: Number, required: false},
     "endpoint-url": { type: String, required: true},
-    "application-id-string": { type: String, required: true},
     api: { 
       type: Schema.Types.String, // api-url
       ref: 'api',
